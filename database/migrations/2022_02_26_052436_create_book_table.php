@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProfilesTable extends Migration
+class CreateBookTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateProfilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('profiles', function (Blueprint $table) {
-            $table->id('user_id');
-            $table->string('fullname');
-            $table->string('email');
-            $table->string('address');
+        Schema::create('book', function (Blueprint $table) {
+            $table->id('booking_id');
+            $table->integer('transaction_id');
+            $table->integer('bookingtype_id');
+            $table->integer('user_id');
+            $table->integer('status_id');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateProfilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profiles');
+        Schema::dropIfExists('book');
     }
 }

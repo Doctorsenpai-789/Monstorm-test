@@ -72,6 +72,7 @@ class AuthController extends Controller
     //logout
     public function logout(Request $request)
     {
+
         auth()->user()->tokens()->delete();
         // $user = Auth::user();
 
@@ -80,4 +81,5 @@ class AuthController extends Controller
             'message' => 'Logged out'
         ];
     }
+  
 }
