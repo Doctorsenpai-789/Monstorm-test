@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model
+class Product extends Model
 {
     use HasFactory;
-    public $table = 'book';
+    public $table = 'product';
     protected $fillable = [
-        'transaction_id',
-        'bookingtype_id',
-        'user_id',
-        'status_id'
+        'product_name',
+        'product_description',
+        'product_price',
     ];
 }

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
-class BookController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        return Book::all();
+        return Product::all();
     }
 
     /**
@@ -25,15 +25,13 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
-            'transaction_id' => 'required',
-            'bookingtype_id' => 'required',
-            'user_id' => 'required',
-            'status_id' => 'required'
+            'product_name' => 'required',
+            'product_description' => 'required',
+            'product_price' => 'required'
 
         ]);
-        return Book::create($request->all());
+        return Product::create($request->all());
     }
 
     /**
@@ -44,7 +42,7 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        return Book::find($id);
+        return Product::find($id);
     }
 
     /**
@@ -56,9 +54,9 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $book = Book::find($id);
-        $book->update($request->all());
-        return $book;
+        $product = Product::find($id);
+        $product->update($request->all());
+        return $product;
     }
 
     /**
@@ -69,7 +67,7 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-       $deletebook = Book::find($id)->first()->destroy($id);
-        return $deletebook;
+        $deleteproduct = Product::find($id)->first()->destroy($id);
+        return $deleteproduct;
     }
 }
