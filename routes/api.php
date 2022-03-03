@@ -1,88 +1,50 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
-use App\Http\Controllers\ProductController;
-use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-//Route::resource('profile', ProfileController::class);
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| is assigned the "api" middleware group. Enjoy building your API!
+|
+*/
 
-//Public routes
+// Route::resource('products', ProductController::class);
+
+// Public routes
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/products', [ProductController::class, 'index']);
+Route::get('/products/{id}', [ProductController::class, 'show']);
+Route::get('/products/search/{name}', [ProductController::class, 'search']);
 
-Route::get('/profile', [ProfileController::class, 'index']);
-Route::get('/profile/search/{fullname}', [ProfileController::class, 'search']);
-Route::get('/profile/{id}', [ProfileController::class, 'show']);
-
-
-//Booking routes
 Route::get('/book', [BookController::class, 'index']);
-Route::get('/book', [BookController::class, 'show']);
-Route::resource('/book', BookController::class);
-Route::post('/book', [BookController::class, 'store']);
-Route::put('/book/{id}', [BookController::class, 'update']);
-Route::delete('/book/{id}', [BookController::class, 'destroy']);
+Route::get('/book/{id}', [BookController::class, 'show']);
 
 
-//Protected routes
+// Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
-  Route::post('/profile', [ProfileController::class, 'store']);
-  Route::put('/profile/{id}', [ProfileController::class, 'update']);
-  Route::delete('/profile/{id}', [ProfileController::class, 'destroy']);
-  Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/products', [ProductController::class, 'store']);
+    Route::put('/products/{id}', [ProductController::class, 'update']);
+    Route::delete('/products/{id}', [ProductController::class, 'destroy']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+
+    //book routes
+    Route::post('/book', [BookController::class, 'store']);
+    Route::put('/book/{id}', [BookController::class, 'update']);
+    Route::delete('/book/{id}', [BookController::class, 'destroy']);
 });
 
 
-//Product routes
-Route::resource('/product', ProductController::class);
-Route::get('/product',[ProductController::class, 'index']);
-Route::get('/product',[ProductController::class, 'show']);
-Route::post('/product', [ProductController::class, 'store']);
-Route::put('/profile/{id}', [ProductController::class, 'update']);
-Route::delete('/profile/{id}', [ProductController::class, 'destroy']);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// return response()->json([
-//     'fullname' => 'Monstorm' ,
-//     'email' => 'monstorm@gmail.com',
-//     'address' => 'Dalaguete',
-//     'phoneNumber' => '09123979022',
-//     'password' => "no password",
-//     'userTypeID'=> 002,
-
-// ]);
-
-// return Profile::all();
-
-// Route::post('/profile', function () {
-//     return Profile::create([
-//         'fullname' => 'Monstorm',
-//         'email' => 'Monstorm@gmail.com',
-//         'address' => 'Dalaguete'
-//     ]);
-// });
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});

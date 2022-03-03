@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class BookingType extends Model
 {
     use HasFactory;
-
+    public $table='bookingtype';
     protected $fillable = [
-        'productName',
-        'description',
-        'price'
+        'bookingtype'
+        
     ];
 }
