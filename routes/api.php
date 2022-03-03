@@ -34,6 +34,8 @@ Route::get('/products/search/{name}', [ProductController::class, 'search']);
 
 Route::get('/book', [BookController::class, 'index']);
 Route::get('/book/{id}', [BookController::class, 'show']);
+Route::get('/book/search/{name}', [BookController::class, 'search']);
+
 
 
 
@@ -47,10 +49,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //book routes
 });
-
 Route::post('/book', [BookController::class, 'store']);
 Route::put('/book/{id}', [BookController::class, 'update']);
 Route::delete('/book/{id}', [BookController::class, 'destroy']);
+
 
 
 
@@ -60,7 +62,6 @@ Route::resource('transaction', TransactionController::class);
 Route::resource('usertype', UserTypeController::class);
 Route::resource('announcement', AnnouncementController::class);
 Route::resource('status', StatusController::class);
-
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

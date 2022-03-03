@@ -72,4 +72,9 @@ class BookController extends Controller
        $deletebook = Book::find($id)->first()->destroy($id);
         return $deletebook;
     }
+
+    public function search($transactionId)
+    {
+        return Book::where('transaction_id', 'like', '%'.$transactionId.'%')->get();
+    }
 }
