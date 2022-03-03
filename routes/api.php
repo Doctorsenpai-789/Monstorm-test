@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\BookingTypeController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserTypeController;
+use App\Http\Controllers\StatusController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -51,10 +54,13 @@ Route::delete('/book/{id}', [BookController::class, 'destroy']);
 
 
 
-//bookingtype routes
+//resource routes
 Route::resource('bookingtype', BookingTypeController::class);
 Route::resource('transaction', TransactionController::class);
 Route::resource('usertype', UserTypeController::class);
+Route::resource('announcement', AnnouncementController::class);
+Route::resource('status', StatusController::class);
+
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserType extends Model
+class Status extends Model
 {
- 
     use HasFactory;
-    public $table='usertype';
+    public $table='status';
     protected $fillable = [
-        'usertype'
+        'status'
         
     ];
 }
