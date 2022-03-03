@@ -3,6 +3,9 @@
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\BookingTypeController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\UserTypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +33,8 @@ Route::get('/book', [BookController::class, 'index']);
 Route::get('/book/{id}', [BookController::class, 'show']);
 
 
+
+
 // Protected routes
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/products', [ProductController::class, 'store']);
@@ -38,11 +43,18 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     //book routes
-    Route::post('/book', [BookController::class, 'store']);
-    Route::put('/book/{id}', [BookController::class, 'update']);
-    Route::delete('/book/{id}', [BookController::class, 'destroy']);
 });
 
+Route::post('/book', [BookController::class, 'store']);
+Route::put('/book/{id}', [BookController::class, 'update']);
+Route::delete('/book/{id}', [BookController::class, 'destroy']);
+
+
+
+//bookingtype routes
+Route::resource('bookingtype', BookingTypeController::class);
+Route::resource('transaction', TransactionController::class);
+Route::resource('usertype', UserTypeController::class);
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
