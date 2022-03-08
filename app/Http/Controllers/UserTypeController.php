@@ -15,7 +15,11 @@ class UserTypeController extends Controller
      */
     public function index()
     {
-        return UserType::all();
+       
+      //  return UserType::all();
+
+
+
     }
 
     /**

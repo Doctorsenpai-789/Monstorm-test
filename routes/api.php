@@ -47,21 +47,42 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/products/{id}', [ProductController::class, 'destroy']);
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    //book routes
 });
+
+//book routes
 Route::post('/book', [BookController::class, 'store']);
 Route::put('/book/{id}', [BookController::class, 'update']);
 Route::delete('/book/{id}', [BookController::class, 'destroy']);
 
+//transcation routes
+Route::post('/transaction', [TransactionController::class, 'store']);
+Route::put('/transaction/{id}', [TransactionController::class, 'update']);
+Route::delete('/transaction/{id}', [TransactionController::class, 'destroy']);
+
+
+//transaction routes
+Route::get('/transaction', [TransactionController::class, 'index']);
+Route::get('/transaction/{id}', [TransactionController::class, 'show']);
+// Route::post('/transaction', [TransactionController ::class, 'store']);
+// Route::put('/transaction/{id}', [TransactionController ::class, 'update']);
+// Route::delete('/transaction/{id}', [TransactionController ::class, 'destroy']);
+
+//Route::resource('transaction', TransactionController::class);
 
 
 
 //resource routes
 Route::resource('bookingtype', BookingTypeController::class);
-Route::resource('transaction', TransactionController::class);
 Route::resource('usertype', UserTypeController::class);
 Route::resource('announcement', AnnouncementController::class);
 Route::resource('status', StatusController::class);
+
+//bookingtype routes
+Route::get('/bookingtype', [BookingTypeController::class, 'index']);
+Route::get('/bookingtype/{id}', [BookingTypeController::class, 'show']);
+Route::post('/bookingtype', [BookingTypeController::class, 'store']);
+Route::put('/bookingtype/{id}', [BookingTypeController::class, 'update']);
+Route::delete('/bookingtype/{id}', [BookingTypeController::class, 'destroy']);
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

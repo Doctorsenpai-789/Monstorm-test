@@ -15,8 +15,10 @@ class CreateUsertypeTable extends Migration
     {
         Schema::create('usertype', function (Blueprint $table) {
             $table->id();
-            $table->string('usertype');
+            $table->unsignedBigInteger('user_id');
+            $table->string('usertypename')->nullable();
             $table->timestamps();
+            //$table->index('user_id');
         });
     }
 

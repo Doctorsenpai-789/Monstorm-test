@@ -14,4 +14,11 @@ class Product extends Model
         'description',
         'price'
     ];
+
+
+    public function book()
+    {
+        return $this->hasMany(Book::class);
+    }
+
 }

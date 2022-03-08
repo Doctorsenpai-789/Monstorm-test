@@ -13,4 +13,16 @@ class Announcement extends Model
         'title',
         'description'
     ];
+
+     /**
+      * Get the user that owns the Announcement
+      *
+      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+      */
+     public function user()
+     {
+         return $this->belongsTo(User::class);
+     }
+
+     
 }

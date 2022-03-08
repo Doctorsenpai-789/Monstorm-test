@@ -15,4 +15,24 @@ class Book extends Model
         'user_id',
         'status_id'
     ];
+
+    public function product(){
+        return $this->belongsTo(Product::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+
+    public function bookProduct()
+    {
+        $product = Product::whereHas('book', function ($query){
+            $query->whereUserId($this->id);
+        })->get();
+        return $product;
+    }
+
+    
 }
