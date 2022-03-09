@@ -20,9 +20,10 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'phoneNumber',
+        'phone_number',
         'password',
-        'address'
+        'address',
+        'user_type'
     ];
 
     /**
@@ -74,19 +75,19 @@ class User extends Authenticatable
     // }
 
 
-    protected static function boot()
-    {
-        parent::boot();
+    // protected static function boot()
+    // {
+    //     parent::boot();
 
-        static::created(function ($user) {
-            $user->usertype()->create([
-                'usertypename' => $user->name
-            ]);
-        });
-    }
+    //     static::created(function ($user) {
+    //         $user->usertype()->create([
+    //             'usertypename' => $user->name
+    //         ]);
+    //     });
+    // }
 
-    public function usertype()
-    {
-        return $this->hasOne(UserType::class);
-    }
+    // public function usertype()
+    // {
+    //     return $this->hasOne(UserType::class);
+    // }
 }

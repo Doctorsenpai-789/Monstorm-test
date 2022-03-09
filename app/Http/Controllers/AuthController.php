@@ -13,16 +13,18 @@ class AuthController extends Controller
     {
         $fields = $request->validate([
             'name' => 'required|string',
-            'phoneNumber' => 'required|string|unique:users,phoneNumber',
+            'phone_number' => 'required|string|unique:users,phone_number',
             'password' => 'required|string|confirmed',
-            'address' => 'required|string'
+            'address' => 'required|string',
+            'user_type' => 'required|string'
         ]);
 
         $user = User::create([
             'name' => $fields['name'],
-            'phoneNumber' => $fields['phoneNumber'],
-            'password' => bcrypt($fields['password'],),
-            'address' => $fields['address']
+            'phone_number' => $fields['phone_number'],
+            'password' => bcrypt($fields['password']),
+            'address' => $fields['address'],
+            'user_type' => $fields['user_type']
         ]);
 
         $token = $user->createToken('myapptoken')->plainTextToken;
@@ -38,12 +40,12 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $fields = $request->validate([
-            'phoneNumber' => 'required|string',
+            'phone_number' => 'required|string',
             'password' => 'required|string'
         ]);
 
         // Check email
-        $user = User::where('phoneNumber', $fields['phoneNumber'])->first();
+        $user = User::where('phone_number', $fields['phone_number'])->first();
 
         // Check password
         if (!$user || !Hash::check($fields['password'], $user->password)) {
