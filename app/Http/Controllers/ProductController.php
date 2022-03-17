@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class ProductController extends Controller
 {
@@ -26,12 +28,12 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'productName' => 'required',
+            'product_name' => 'required',
             'description' => 'required',
             'price' => 'required'
         ]);
-
-        return Product::create($request->all());
+        return Auth::user()->products()->create($request->all());
+        //return Product::create($request->all());
     }
 
     /**
@@ -78,6 +80,6 @@ class ProductController extends Controller
      */
     public function search($name)
     {
-        return Product::where('name', 'like', '%'.$name.'%')->get();
+        return Product::where('product_type', 'like', '%'.$name.'%')->get();
     }
 }

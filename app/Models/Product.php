@@ -10,15 +10,24 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'productName',
+        'product_name',
         'description',
-        'price'
+        'price',
     ];
 
-
-    public function book()
+    public function user()
     {
-        return $this->hasMany(Book::class);
+        return $this->belongsTo(User::class);
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function bookings()
+    {
+        return $this->belongsToMany(Booking::class, 'transactions', 'booking_id', 'product_id');
     }
 
 }

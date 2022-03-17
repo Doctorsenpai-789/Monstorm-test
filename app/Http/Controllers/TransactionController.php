@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
- use App\Models\Transaction;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class TransactionController extends Controller
 {
@@ -26,11 +28,16 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'product_id' => 'required',
-            'quantity' => 'required'
-            
+
+            'quantity' => 'required',
+
         ]);
-        return Transaction::create($request->all());
+           return Transaction::create($request->all());
+      //  return Auth::user()->transactions()->create($request);
+
+        // return Auth::user()->transactions()->create($request->all());
+        //return Product::product()->transactions()->create($data1);
+
     }
 
     /**
@@ -55,7 +62,7 @@ class TransactionController extends Controller
     {
         $transaction = Transaction::find($id);
         $transaction->update($request->all());
-        return($transaction);
+        return ($transaction);
     }
 
     /**

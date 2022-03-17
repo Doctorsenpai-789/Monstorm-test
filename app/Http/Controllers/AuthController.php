@@ -40,8 +40,8 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $fields = $request->validate([
-            'phone_number' => 'required|string',
-            'password' => 'required|string'
+            'phone_number' => 'required',
+            'password' => 'required'
         ]);
 
         // Check email
@@ -64,12 +64,22 @@ class AuthController extends Controller
         return response($response, 201);
     }
 
+    
+    
     public function logout(Request $request)
     {
-        auth()->user()->tokens()->delete();
+        // auth()->user()->tokens()->delete();
 
+        // return [
+        //     'message' => 'Logged out'
+        // ];
+        auth()->user()->tokens->each(function($token) {
+            $token->delete();
+        });
+    
         return [
-            'message' => 'Logged out'
-        ];
+                 'message' => 'Logged out'
+             ];
     }
-}
+    }
+

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Models\Booking;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class BookController extends Controller
+
+class BookingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        return Book::all();
+        return Booking::all();
     }
 
     /**
@@ -25,15 +27,23 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-
-        $request->validate([
-            'transaction_id' => 'required',
-            'bookingtype_id' => 'required',
-            'user_id' => 'required',
-            'status_id' => 'required'
-
+        $data = $request->validate([
+            'product_id' => 'required',
+            'quantity' => 'required',
+            'booking_type' => 'required',
+            'status' => 'required',
         ]);
-        return Book::create($request->all());
+        //$data["user_id"] = \Auth::user()->id;
+        $data["user_id"] = Auth::user()->id;
+
+        $booking = Booking::create($data);
+        $booking->products()->attach($request->product_id);
+        return response()->json(["message" => "Created!"]);
+
+// return Auth::user()->bookings->each(function($data){
+//           $data->create();
+//     });
+
     }
 
     /**
@@ -44,7 +54,7 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        return Book::find($id);
+        return Booking::find($id);
     }
 
     /**
@@ -56,9 +66,9 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $book = Book::find($id);
-        $book->update($request->all());
-        return $book;
+        $booking = Booking::find($id);
+        $booking->update($request->all());
+        return $booking;
     }
 
     /**
@@ -69,12 +79,7 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-       $deletebook = Book::find($id)->first()->destroy($id);
-        return $deletebook;
-    }
-
-    public function search($transactionId)
-    {
-        return Book::where('transaction_id', 'like', '%'.$transactionId.'%')->get();
+        $delete_booking = Booking::destroy($id);
+        return $delete_booking;
     }
 }

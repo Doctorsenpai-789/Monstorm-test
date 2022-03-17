@@ -2,11 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\UserType;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -23,7 +21,7 @@ class User extends Authenticatable
         'phone_number',
         'password',
         'address',
-        'user_type'
+        'user_type',
     ];
 
     /**
@@ -45,49 +43,26 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
-
-    public function book()
-    {
-        return $this->hasMany(Book::class)->orderBy('created_at', 'DESC');
-    }
-
     public function product()
     {
         return $this->hasMany(Product::class);
     }
-
-
-
-    // public function getUserTypeRelation(){
-    //     return $this->hasOne(related: 'App\Model\Usertype',  foreignKey: 'user_id', localKey: 'id');
-    // }
-
 
     /**
      * Get the user associated with the User
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    // public function getUserTypeRelation()
-    // {
-    //     return $this->hasOne(UserType::class, 'user_id', 'id');
-    // }
 
+    protected $table = 'users';
 
-    // protected static function boot()
-    // {
-    //     parent::boot();
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 
-    //     static::created(function ($user) {
-    //         $user->usertype()->create([
-    //             'usertypename' => $user->name
-    //         ]);
-    //     });
-    // }
-
-    // public function usertype()
-    // {
-    //     return $this->hasOne(UserType::class);
-    // }
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
