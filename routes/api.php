@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -47,7 +49,15 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/transactions', [TransactionController::class, 'store']);
     Route::put('/transaction/{id}', [TransactionController::class, 'update']);
     Route::delete('/transaction/{id}', [TransactionController::class, 'destroy']);
+
+    //annoucement routes
+    // Route::post('/transaction', [TransactionController ::class, 'store']);
+
 });
+
+Route::post('/announcement', [AnnouncementController::class, 'store']);
+Route::post('/profiles', [ProfileController::class, 'store']);
+
 
 //transaction routes
 Route::get('/transaction', [TransactionController::class, 'index']);
@@ -61,7 +71,9 @@ Route::get('/transaction/{id}', [TransactionController::class, 'show']);
 //resource routes
 // Route::resource('bookingtype', BookingTypeController::class);
 // Route::resource('usertype', UserTypeController::class);
-// Route::resource('announcement', AnnouncementController::class);
+Route::resource('announcement', AnnouncementController::class);
+Route::resource('profiles', ProfileController::class);
+
 // Route::resource('status', StatusController::class);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

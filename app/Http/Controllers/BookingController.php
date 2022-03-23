@@ -6,7 +6,6 @@ use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
 class BookingController extends Controller
 {
     /**
@@ -33,16 +32,14 @@ class BookingController extends Controller
             'booking_type' => 'required',
             'status' => 'required',
         ]);
-        //$data["user_id"] = \Auth::user()->id;
+       
         $data["user_id"] = Auth::user()->id;
 
         $booking = Booking::create($data);
-        $booking->products()->attach($request->product_id);
+      
+        $booking->products()->attach([$request->product_id]);
+    
         return response()->json(["message" => "Created!"]);
-
-// return Auth::user()->bookings->each(function($data){
-//           $data->create();
-//     });
 
     }
 

@@ -32,8 +32,8 @@ class ProductController extends Controller
             'description' => 'required',
             'price' => 'required'
         ]);
-        return Auth::user()->products()->create($request->all());
-        //return Product::create($request->all());
+      //  return Auth::user()->products()->create($request->all());
+        return Product::create($request->all());
     }
 
     /**
@@ -80,6 +80,6 @@ class ProductController extends Controller
      */
     public function search($name)
     {
-        return Product::where('product_type', 'like', '%'.$name.'%')->get();
+        return Product::where('product_name', 'like', '%'.$name.'%')->get();
     }
 }

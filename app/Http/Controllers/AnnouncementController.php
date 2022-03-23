@@ -25,11 +25,12 @@ class AnnouncementController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+       $data = $request->validate([
             'title' => 'required',
             'description' => 'required'
         ]);
-        return Announcement::create($request->all());
+       // dd($data);
+        return Announcement::create($data);
     }
 
     /**

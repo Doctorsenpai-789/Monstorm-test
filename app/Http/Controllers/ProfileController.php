@@ -1,19 +1,24 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
-use App\Models\Status;
 
-class StatusController extends Controller
+use App\Models\Profile;
+use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Auth;
+
+
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        return Status::all();
+        return Profile::all();
     }
 
     /**
@@ -24,11 +29,15 @@ class StatusController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'status' => 'required'
+       $data = $request->validate([
+            'name' => 'required',
+            'phone_number' => 'required',
+            'address' => 'required'
         ]);
+    // dd($data);
+    // return Auth::user()->profiles()->create($request->all());
+        return Profile::create($request->all());
 
-        return Status::create($request->all());
     }
 
     /**
@@ -39,7 +48,8 @@ class StatusController extends Controller
      */
     public function show($id)
     {
-        return Status::find($id);
+        return Profile::find($id);
+
     }
 
     /**
@@ -51,7 +61,7 @@ class StatusController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $status = Status::find($id);
+        $status = Profile::find($id);
         $status->update($request->all());
         return $status;
     }
@@ -64,7 +74,7 @@ class StatusController extends Controller
      */
     public function destroy($id)
     {
-        $deletestatus = Status::destroy($id);
+        $deletestatus = Profile::destroy($id);
         return $deletestatus;
     }
 }

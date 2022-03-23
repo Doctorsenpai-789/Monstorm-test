@@ -9,7 +9,8 @@ class Booking extends Model
 {
     use HasFactory;
 
-    // protected $guarded = [];
+     protected $guarded = [];
+    //  protected $table = 'bookings';
     protected $fillable = [
         'quantity',
         'booking_type',
@@ -23,6 +24,7 @@ class Booking extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'transactions');
+        return $this->belongsToMany(Product::class, 'transactions')->withTimestamps();
     }
+    
 }
