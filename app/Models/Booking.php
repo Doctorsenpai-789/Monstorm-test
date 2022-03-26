@@ -15,7 +15,11 @@ class Booking extends Model
         'quantity',
         'booking_type',
         'status',
+        'phone_number',
+        'address',
         'user_id',
+        'delivery_date',
+        'pickup_date'
     ];
     public function user()
     {

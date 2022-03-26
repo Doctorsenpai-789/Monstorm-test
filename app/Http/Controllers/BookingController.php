@@ -26,11 +26,20 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
+
+       try {
         $data = $request->validate([
             'product_id' => 'required',
             'quantity' => 'required',
             'booking_type' => 'required',
+            'phone_number'=> 'required',
+            'address'=>'required',
             'status' => 'required',
+            'delivery_date' => '',
+            'pickup_date' => ''
+
+          
+                    
         ]);
        
         $data["user_id"] = Auth::user()->id;
@@ -41,6 +50,11 @@ class BookingController extends Controller
     
         return response()->json(["message" => "Created!"]);
 
+       } catch (\Throwable $e) {
+
+           return "All fields are required".$e;
+       }
+        
     }
 
     /**

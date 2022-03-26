@@ -66,6 +66,7 @@ class AuthController extends Controller
 
     
     
+
     public function logout(Request $request)
     {
         // auth()->user()->tokens()->delete();
@@ -81,5 +82,32 @@ class AuthController extends Controller
                  'message' => 'Logged out'
              ];
     }
+
+    public function change_password(Request $request)
+    {
+        $fields = $request->validate([
+            'password' => 'required'
+        ]);
+
+        // Check email
+        $user = User::where('phone_number', $fields['phone_number'])->first();
+
+        // Check password
+        if (!$user || !Hash::check($fields['password'], $user->password)) {
+            return response([
+                'message' => 'Bad credentials'
+            ], 401);
+        }
+
+        $token = $user->createToken('myapptoken')->plainTextToken;
+
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+
+        return response($response, 201);
+    }
+
     }
 

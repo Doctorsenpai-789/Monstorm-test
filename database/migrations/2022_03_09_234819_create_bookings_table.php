@@ -18,7 +18,12 @@ class CreateBookingsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->integer("quantity");
             $table->string('booking_type');
+            $table->string('phone_number');
+            $table->string('address');
             $table->string('status');
+            $table->date('delivery_date')->nullable();
+            $table->date('pickup_date')->nullable();
+
             $table->timestamps();
          //   $table->foreign('user_id')->references('id')->on('users')->Delete('cascade');   
 

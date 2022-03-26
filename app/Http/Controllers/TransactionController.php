@@ -29,7 +29,7 @@ class TransactionController extends Controller
     {
         $request->validate([
 
-            'quantity' => 'required',
+            'control_number'=>'required'
 
         ]);
            return Transaction::create($request->all());

@@ -47,8 +47,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     //transcation routes
     Route::post('/transactions', [TransactionController::class, 'store']);
-    Route::put('/transaction/{id}', [TransactionController::class, 'update']);
-    Route::delete('/transaction/{id}', [TransactionController::class, 'destroy']);
+    Route::put('/transactions/{id}', [TransactionController::class, 'update']);
+    Route::delete('/transactions/{id}', [TransactionController::class, 'destroy']);
 
     //annoucement routes
     // Route::post('/transaction', [TransactionController ::class, 'store']);
