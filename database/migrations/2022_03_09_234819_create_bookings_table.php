@@ -25,7 +25,7 @@ class CreateBookingsTable extends Migration
             $table->date('pickup_date')->nullable();
 
             $table->timestamps();
-         //   $table->foreign('user_id')->references('id')->on('users')->Delete('cascade');   
+         // $table->foreign('user_id')->references('id')->on('users')->Delete('cascade');   
 
 
         });
